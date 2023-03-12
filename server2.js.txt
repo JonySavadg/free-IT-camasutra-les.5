@@ -1,0 +1,21 @@
+const http = require(`http`);
+
+let obj = {
+   '/page1': '1',
+   '/page2': '2',
+   '/page3': '3',
+}
+
+let requestsCount = 0;
+
+ const server = http.createServer( (request, response) => { //создай сервер. Далее наш сервер будет вызывать указанную функцию, каждый раз когда к нему обращаются
+
+   if (request.url != `/favicon.ico`) requestsCount++;
+
+   if (obj.hasOwnProperty(request.url)) response.write(`Works - ${requestsCount}`);
+   else {response.write(`Don't works - ${requestsCount}`);}
+
+   response.end();
+ });
+
+ server.listen(3003) //выделяем порт (дорогу)
