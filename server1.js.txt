@@ -1,0 +1,26 @@
+const http = require(`http`); // требуем подключить в наш файл пакет http
+
+let requestsCount = 0;
+
+
+ const server = http.createServer( (request, response) => { //создай сервер. Далее наш сервер будет вызывать указанную функцию, каждый раз когда к нему обращаются
+
+   if (request.url != `/favicon.ico`) requestsCount++; //знание для хрома (еще?)
+
+   switch (request.url) { //у request есть свойство url (изначально? у всех / большинства объектов? URL & url it is different?)
+     case `/students`:
+       response.write(`Students `)
+       break;
+     case `/`:
+     case `/courses`:
+       response.write(`Front + Back `)
+       break;
+     default:
+       response.write(`404 not found `)
+   }
+
+   response.write(`IT-kamasutra ` + requestsCount)
+   response.end();
+ });
+
+ server.listen(3003) //выделяем порт (дорогу)
